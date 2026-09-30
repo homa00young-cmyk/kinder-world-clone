@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #fdfbf7; /* Cream background */
+    color: #2d3748;
+    font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Custom soft colors */
+:root {
+  --color-mint-light: #e6f4ea;
+  --color-mint: #a3e635;
+  --color-mint-dark: #3b7a57;
+  --color-cream: #fdfbf7;
+  --color-cream-card: #f7f3e9;
+  --color-sky: #e0f2fe;
+  --color-sky-dark: #0284c7;
+}
