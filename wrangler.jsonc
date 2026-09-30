@@ -1,0 +1,8 @@
+{
+  "name": "kinder-world-clone",
+  "pages_build_output_dir": "dist",
+  "assets": {
+    "directory": "./dist"
+  },
+  "compatibility_date": "2026-09-30"
+}
