@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { PlantDisplay } from './components/PlantDisplay';
 import { MoodSelector } from './components/MoodSelector';
 import { ExerciseModal } from './components/ExerciseModal';
+import { InstallButton } from './components/InstallButton';
 import { usePlant } from './hooks/usePlant';
 import type { MoodType } from './types/moods';
 
@@ -36,6 +37,8 @@ export function App() {
           </h1>
           <p className="text-xs text-stone-500 font-medium">گوشه‌ای آرام برای ذهن شما</p>
         </header>
+
+        <InstallButton />
 
         {showGrowthCelebration && (
           <div className="w-full bg-emerald-100/80 border border-emerald-300 text-emerald-800 px-4 py-3 rounded-2xl text-center text-sm font-medium animate-bounce">
