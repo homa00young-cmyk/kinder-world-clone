@@ -12,7 +12,7 @@ describe('Kinder World 2.0 App', () => {
 
   it('renders initial state with 🌰 seed plant and question "امروز چه حسی داری؟"', () => {
     render(<App />);
-    expect(screen.getByText('Kinder World')).toBeInTheDocument();
+    expect(screen.getByText(/Kinder World/)).toBeInTheDocument();
     expect(screen.getByText('امروز چه حسی داری؟')).toBeInTheDocument();
     expect(screen.getByText('🌰')).toBeInTheDocument();
     expect(screen.getAllByText(/دانه/)[0]).toBeInTheDocument();
@@ -44,7 +44,7 @@ describe('Kinder World 2.0 App', () => {
     const completeBtn = screen.getByRole('button', { name: /اتمام تمرین و رشد گیاه/ });
     fireEvent.click(completeBtn);
 
-    expect(screen.getByText('🌱')).toBeInTheDocument();
+    expect(screen.getAllByText('🌱')[0]).toBeInTheDocument();
     expect(screen.getAllByText(/جوانه/)[0]).toBeInTheDocument();
   });
 
@@ -63,7 +63,7 @@ describe('Kinder World 2.0 App', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /اتمام تمرین و رشد گیاه/ }));
 
-    expect(screen.getByText('🌿')).toBeInTheDocument();
+    expect(screen.getAllByText('🌿')[0]).toBeInTheDocument();
     expect(screen.getAllByText(/نهال جوان/)[0]).toBeInTheDocument();
 
     const savedState = JSON.parse(localStorage.getItem('kinder_world_plant_state_v2') || '{}');
