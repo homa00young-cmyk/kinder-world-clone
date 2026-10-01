@@ -1,35 +1,37 @@
-import { useState, useEffect } from 'react';
-import { loadPlantState, savePlantState, getPlantStage, type PlantState } from '../utils/plantStorage';
+import { usePlantStore } from '../store/usePlantStore';
 
 export function usePlant() {
-  const [plantState, setPlantState] = useState<PlantState>(() => loadPlantState());
+  const store = usePlantStore();
+  const stage = store.getStage();
+  const nextInfo = store.getNextStageInfo();
 
-  useEffect(() => {
-    savePlantState(plantState);
-  }, [plantState]);
+  // Legacy stageIndex mapping for backwards compatibility (0, 1, 2)
+  let legacyStageIndex = 0;
+  if (stage.stage >= 6) legacyStageIndex = 2; // Tree
+  else if (stage.stage >= 3) legacyStageIndex = 1; // Seedling/Sprout
 
   const growPlant = () => {
-    setPlantState((prev) => {
-      const nextStageIndex = Math.min(prev.stageIndex + 1, 2);
-      return {
-        stageIndex: nextStageIndex,
-        completedExercisesCount: prev.completedExercisesCount + 1,
-      };
-    });
-  };
-
-  const currentStage = getPlantStage(plantState.stageIndex);
-
-  const resetPlant = () => {
-    const newState = { stageIndex: 0, completedExercisesCount: 0 };
-    setPlantState(newState);
+    store.addXP(15);
   };
 
   return {
-    stageIndex: plantState.stageIndex,
-    completedExercisesCount: plantState.completedExercisesCount,
-    currentStage,
+    stageIndex: legacyStageIndex,
+    completedExercisesCount: store.completedExercisesCount,
+    currentStage: {
+      emoji: stage.emoji,
+      label: stage.label,
+      description: stage.description,
+    },
     growPlant,
-    resetPlant,
+    resetPlant: store.resetPlant,
+
+    // V2 Extended features
+    store,
+    stageLevel: stage.stage,
+    totalXP: store.totalXP,
+    health: store.health,
+    species: store.getSpecies(),
+    nextStageInfo: nextInfo,
+    waterPlant: store.waterPlant,
   };
 }
